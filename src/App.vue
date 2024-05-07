@@ -29,22 +29,16 @@ export default {
 
   methods: {
     selectList() {
-      this.cardsArray = [];
-      if (this.store.selectedStatus !== "All") {
-        this.store.list.forEach(element => {
-          if (this.store.selectedStatus === element.status) {
-            this.cardsArray.push(element);
-          }
-        });
-      } else {
-        console.log("ciao");
-        console.log(this.store.list);
-        this.cardsArray = this.store.list;
-      }
-      this.store.count = this.cardsArray.length;
-      console.log(this.cardsArray.length);
-    }
+  // Directly assign the entire list if no specific status is selected
+  if (this.store.selectedStatus === "All") {
+    this.cardsArray = this.store.list;
+  } else {
+    // Filter the list based on the selected status
+    this.cardsArray = this.store.list.filter((curElem) => curElem.status === this.store.selectedStatus);
   }
+  // Update the count and log the length
+  this.store.count = this.cardsArray.length;
+}
 
   //  methods with call api when select options change
 
@@ -59,12 +53,13 @@ export default {
   //     this.cardsArray = resp.data.results;
   //   })
   //
-};
+},
+}
 </script>
 
 <template>
 
-  <AppHeader @filter="selectList" />
+  <AppHeader @selection="selectList" />
 
   <AppCardsList :cardsArray="cardsArray" />
 

@@ -14,7 +14,7 @@ export default{
         <h3>Rick And morty App</h3>
         <div>
             <span>risulati mostrati {{ this.store.count }}</span>
-        <select @change="$emit('filter')" v-model="store.selectedStatus">
+        <select @change="$emit('selection')" v-model="store.selectedStatus">
             <option  :value="curElem" v-for="curElem in store.status">{{ curElem }}</option>
         </select>
         </div>

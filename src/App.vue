@@ -28,24 +28,17 @@ export default {
 
   methods:{
       selectList(){
+        let status = {};
         if(this.store.selectedStatus !== "All"){
-          const status ={
-              status: this.store.selectedStatus,
-          }
+               status.status = this.store.selectedStatus;
+         }
           axios
           .get("https://rickandmortyapi.com/api/character",
           {params: status})
           .then((resp) => {
-              this.cardsArray = resp.data.results;
-    })
-        } else {
-          axios
-          .get("https://rickandmortyapi.com/api/character")
-          .then((resp) => {
-              this.cardsArray = resp.data.results;
-    })
+            this.cardsArray = resp.data.results;
+          })
         }
-      },
   }
 };
 </script>

@@ -8,7 +8,9 @@ export default {
         cardsArray: Array,
     },
     data() {
+        return {
 
+        }
     },
 }
 </script>

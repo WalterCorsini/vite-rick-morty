@@ -1,4 +1,5 @@
 <script>
+import { store } from "./store";
 // axios
 import axios from "axios";
 // import components
@@ -12,28 +13,48 @@ export default {
   },
   data(){
     return{
-      flag:true,
+      store,
       cardsArray : [],
     }
   },
   created(){
-    this.flag = true;
-    axios
-      .get("https://rickandmortyapi.com/api/character")
-      .then((resp) => {
-        this.cardsArray = resp.data.results;
-        this.flag = false;
-      })
+    // axios
+    // .get("https://rickandmortyapi.com/api/character")
+    // .then((resp) => {
+    //   this.cardsArray = resp.data.results;
+    // })
+    this.selectList();
   },
 
+  methods:{
+      selectList(){
+        if(this.store.selectedStatus !== "All"){
+          const status ={
+              status: this.store.selectedStatus,
+          }
+          axios
+          .get("https://rickandmortyapi.com/api/character",
+          {params: status})
+          .then((resp) => {
+              this.cardsArray = resp.data.results;
+    })
+        } else {
+          axios
+          .get("https://rickandmortyapi.com/api/character")
+          .then((resp) => {
+              this.cardsArray = resp.data.results;
+    })
+        }
+      },
+  }
 };
 </script>
 
 <template>
 
-  <AppHeader />
-  <div v-if="flag">caricamento....</div>
-  <AppCardsList v-else :cardsArray="cardsArray" />
+<AppHeader @filter="selectList" />
+
+  <AppCardsList :cardsArray="cardsArray" />
 
 </template>
 

@@ -12,8 +12,8 @@ export default{
 <template>
     <div>
         <span>Rick And morty App</span>
-        <select name="status" id="">
-            <option value="" v-for="curElem in store.status">{{ curElem }}</option>
+        <select @change="$emit('filter')" v-model="store.selectedStatus">
+            <option  :value="curElem" v-for="curElem in store.status">{{ curElem }}</option>
         </select>
     </div>
 </template>

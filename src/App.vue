@@ -7,51 +7,49 @@ import AppHeader from "./components/AppHeader.vue";
 import AppCardsList from "./components/AppCardsList.vue";
 
 export default {
-  components:{
+  components: {
     AppHeader,
     AppCardsList,
   },
-  data(){
-    return{
+  data() {
+    return {
       store,
-      cardsArray : [],
+      cardsArray: [],
     }
   },
-  created(){
-    // axios
-    // .get("https://rickandmortyapi.com/api/character")
-    // .then((resp) => {
-    //   this.cardsArray = resp.data.results;
-    // })
+  created() {
+    axios
+      .get("https://rickandmortyapi.com/api/character")
+      .then((resp) => {
+        this.store.list = resp.data.results;
+      })
     this.selectList();
   },
 
-  methods:{
-      selectList(){
-        let status = {};
-        if(this.store.selectedStatus !== "All"){
-               status.status = this.store.selectedStatus;
-         }
-          axios
-          .get("https://rickandmortyapi.com/api/character",
-          {params: status})
-          .then((resp) => {
-            this.cardsArray = resp.data.results;
-          })
-        }
+  methods: {
+    selectList() {
+      this.cardsArray = [];
+      if (this.store.selectedStatus !== "All") {
+        this.store.list.forEach(element => {
+          if (this.store.selectedStatus === element.status) {
+            // alert("si");
+            this.cardsArray.push(element);
+          }
+        });
+      } else {
+        this.cardsArray = this.store.list;
+      }
+    }
   }
 };
 </script>
 
 <template>
 
-<AppHeader @filter="selectList" />
+  <AppHeader @filter="selectList" />
 
   <AppCardsList :cardsArray="cardsArray" />
 
 </template>
 
-<style lang="scss">
-
-
-</style>
+<style lang="scss"></style>

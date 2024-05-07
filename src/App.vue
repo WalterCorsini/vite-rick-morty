@@ -23,24 +23,28 @@ export default {
       .then((resp) => {
         this.store.list = resp.data.results;
         this.cardsArray = this.store.list;
+        
       })
     this.selectList();
   },
 
   methods: {
     selectList() {
+      this.store.count = 0;
       //  methods with search in global storage
       this.cardsArray = [];
       if (this.store.selectedStatus !== "All") {
         this.store.list.forEach(element => {
           if (this.store.selectedStatus === element.status) {
             this.cardsArray.push(element);
+            this.store.count++;
           }
         });
       } else {
         console.log("ciao");
         console.log(this.store.list);
         this.cardsArray = this.store.list;
+        this.store.count = 20;
       }
     }
   }

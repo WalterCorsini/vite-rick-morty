@@ -11,10 +11,13 @@ export default{
 
 <template>
     <div>
-        <span>Rick And morty App</span>
+        <h3>Rick And morty App</h3>
+        <div>
+            <span>risulati mostrati {{ this.store.count }}</span>
         <select @change="$emit('filter')" v-model="store.selectedStatus">
             <option  :value="curElem" v-for="curElem in store.status">{{ curElem }}</option>
         </select>
+        </div>
     </div>
 </template>
 
@@ -26,6 +29,9 @@ export default{
         text-align: center;
         font-size: 30px;
         font-weight: 800;
+        span{
+            font-size: 12px;
+        }
         select{
             width: 76px;
             text-align: center;

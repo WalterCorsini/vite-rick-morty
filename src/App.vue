@@ -12,23 +12,28 @@ export default {
   },
   data(){
     return{
+      flag:true,
       cardsArray : [],
     }
   },
   created(){
+    this.flag = true;
     axios
       .get("https://rickandmortyapi.com/api/character")
       .then((resp) => {
-          this.cardsArray = resp.data.results;
-      });
+        this.cardsArray = resp.data.results;
+        this.flag = false;
+      })
+  },
 
-  }
 };
 </script>
 
 <template>
+
   <AppHeader />
-  <AppCardsList :cardsArray="cardsArray" />
+  <div v-if="flag">caricamento....</div>
+  <AppCardsList v-else :cardsArray="cardsArray" />
 
 </template>
 

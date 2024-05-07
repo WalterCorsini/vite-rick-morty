@@ -2,7 +2,16 @@
 export default{
     props:{
         cardObj: Object,
-    }
+    },
+    // computed:{
+    //     status(){
+    //         if(this.cardObj.status === "unknown"){
+    //             return "NO STATUS";
+    //         } else {
+    //             return this.cardObj.status;
+    //         }
+    //     },
+    // },
 }
 </script>
 
